@@ -1,5 +1,5 @@
 import React from "react";
-import "./ExpenseForm.css";
+import "../ExpenseForm.css";
 
 class ExpenseForm extends React.Component {
     constructor(props) {
@@ -7,45 +7,47 @@ class ExpenseForm extends React.Component {
         this.state = {
             item: {}
         };
+        // Bind methods
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
-        
+        this.onSubmit = this.onSubmit.bind(this);
     }
-    handleNameChange(e){
-        this.setState((state, props)=>{
-            let item = state.item;
+
+    handleNameChange(e) {
+        this.setState((state) => {
+            let item = { ...state.item }; // Create a new object copy
             item.name = e.target.value;
-            return {item:item};
+            return { item };
         });
     }
 
-    handleAmountChange(e){
-        this.setState((state, props)=>{
-            let item = state.item;
+    handleAmountChange(e) {
+        this.setState((state) => {
+            let item = { ...state.item };
             item.amount = e.target.value;
-            return {item:item};
+            return { item };
         });
     }
 
-    handleDateChange(e){
-        this.setState((state, props)=>{
-            let item = state.item;
+    handleDateChange(e) {
+        this.setState((state) => {
+            let item = { ...state.item };
             item.date = e.target.value;
-            return {item:item};
+            return { item };
         });
     }
 
-    handleCategoryChange(e){
-        this.setState((state, props)=>{
-            let item = state.item;
+    handleCategoryChange(e) {
+        this.setState((state) => {
+            let item = { ...state.item };
             item.category = e.target.value;
-            return {item:item};
+            return { item };
         });
     }
 
-    onSubmit(e){
+    onSubmit(e) {
         e.preventDefault();
         alert(JSON.stringify(this.state.item));
     }
@@ -53,7 +55,7 @@ class ExpenseForm extends React.Component {
     render() {
         return (
             <div id="expenseForm">
-                <form onSubmit={(e)=>this.onSubmit(e)}>
+                <form onSubmit={this.onSubmit}>
                     <label htmlFor="name">Title</label>
                     <input type="text" name="name" id="name" value={this.state.item.name || ''} onChange={this.handleNameChange} />
 
@@ -64,20 +66,20 @@ class ExpenseForm extends React.Component {
                     <input type="date" name="date" id="date" value={this.state.item.date || ''} onChange={this.handleDateChange} />
 
                     <label htmlFor="category">Category</label>
-                        <select type="text" name="category" id="category" value={this.state.item.category || ''}
-                        onChange={this.handleCategoryChange}/> 
+                    <select name="category" id="category" value={this.state.item.category || ''} onChange={this.handleCategoryChange}>
                         <option value="">Select a category</option>
                         <option value="food">Food</option>
                         <option value="transportation">Transportation</option>
                         <option value="utilities">Utilities</option>
                         <option value="entertainment">Entertainment</option>
                         <option value="other">Other</option>
-                        
-                        < select/>
+                    </select>
 
                     <input type="submit" value="Submit" />
                 </form>
             </div>
-        )
+        );
     }
-    }
+}
+
+export default ExpenseForm;   
